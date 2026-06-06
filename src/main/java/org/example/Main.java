@@ -1,6 +1,7 @@
 package org.example;
 
-import org.example.builder.simpleBuilder.HttpRequest;
+import org.example.builder.directorBuilder.DirectorBuilder;
+import org.example.builder.directorBuilder.HttpRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -176,20 +177,20 @@ public class Main {
 
         //1. SImple Builder
 
-        Map<String,String> headers = new HashMap<>();
+        /*Map<String,String> headers = new HashMap<>();
         headers.put("authorization","bearer");
         headers.put("content-type", "application/json");
 
         HttpRequest request = HttpRequest.builder()
                 .withUrl("www.example.com")
-                .withMethod("POST")/*
+                .withMethod("POST")*//*
                 .withHeaders(Map.of(
                         "authorization","bearer",
                         "content-type", "application/json"
-                ))*/
+                ))*//*
                 .withHeaders(headers)
                 .withQueryParam(Map.of("query","What is Builder Design Pattern?"))
-                .withBody("rajeshwar@google.com")
+
                 .withTimeout(1000)
                 .build();
 
@@ -197,7 +198,17 @@ public class Main {
         System.out.println("HashCode : " + request.hashCode());
         request.execute();
         headers.put("hack", "hogya");
+        request.execute();*/
+
+        //2. Director Builder
+
+        DirectorBuilder directorBuilder = new DirectorBuilder();
+
+        HttpRequest request = directorBuilder.getRequestBuilder("www.example.com");
         request.execute();
+
+        HttpRequest request2 = directorBuilder.postRequestWithBodyBuilder("www.leetcode.com", "Live to Learn");
+        request2.execute();
 
 
     }
