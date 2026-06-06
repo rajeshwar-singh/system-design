@@ -1,19 +1,9 @@
 package org.example;
 
 import org.example.builder.simpleBuilder.HttpRequest;
-import org.example.builder.simpleBuilder.HttpRequestBuilder;
-import org.example.factory.simpleFactory.burgerFactory.BurgerFactory;
-import org.example.factory.simpleFactory.burgerFactory.KingBurger;
-import org.example.factory.simpleFactory.burgerFactory.SinghBurger;
-import org.example.factory.simpleFactory.client.Burger;
-import org.example.singleton.*;
-import org.example.strategy.client.Robot;
-import org.example.strategy.featuresImp.JetFly;
-import org.example.strategy.featuresImp.NormalTalk;
-import org.example.strategy.featuresImp.SpecialWalk;
-import org.example.strategy.robots.CompanionRobot;
 
-import java.sql.SQLOutput;
+import java.util.HashMap;
+import java.util.Map;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -185,16 +175,30 @@ public class Main {
         //Builder design pattern
 
         //1. SImple Builder
-        HttpRequest req = new HttpRequestBuilder()
-                .withUrl("https://rajeshwar.com")
-                .withMethod("POST")
-                .withHeader("Authorization","Bearer n8u3nend8u")
-                .withHeader("Content-Type","application/json")
-                .withQueryParam("question","what is enum in java?")
-                .withBody("{\"name\": \"Rajeshwar\"}")
-                .withTimeout(45)
+
+        Map<String,String> headers = new HashMap<>();
+        headers.put("authorization","bearer");
+        headers.put("content-type", "application/json");
+
+        HttpRequest request = HttpRequest.builder()
+                .withUrl("www.example.com")
+                .withMethod("POST")/*
+                .withHeaders(Map.of(
+                        "authorization","bearer",
+                        "content-type", "application/json"
+                ))*/
+                .withHeaders(headers)
+                .withQueryParam(Map.of("query","What is Builder Design Pattern?"))
+                .withBody("rajeshwar@google.com")
+                .withTimeout(1000)
                 .build();
 
-        req.execute();
+
+        System.out.println("HashCode : " + request.hashCode());
+        request.execute();
+        headers.put("hack", "hogya");
+        request.execute();
+
+
     }
 }
