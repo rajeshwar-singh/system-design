@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.builder.directorBuilder.DirectorBuilder;
-import org.example.builder.directorBuilder.HttpRequest;
+import org.example.builder.stepBuilder.HttpRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -200,7 +200,7 @@ public class Main {
         headers.put("hack", "hogya");
         request.execute();*/
 
-        //2. Director Builder
+       /* //2. Director Builder
 
         DirectorBuilder directorBuilder = new DirectorBuilder();
 
@@ -208,8 +208,15 @@ public class Main {
         request.execute();
 
         HttpRequest request2 = directorBuilder.postRequestWithBodyBuilder("www.leetcode.com", "Live to Learn");
-        request2.execute();
+        request2.execute();*/
 
+        //3. Step Builder
+        HttpRequest req = HttpRequest.builder()
+                .withUrl("www.example.com")
+                .withMethod("GET")
+                .withBody("This is the body")
+                .build();
+        req.execute();
 
     }
 }
